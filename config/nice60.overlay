@@ -75,13 +75,15 @@ ext-power {
 vbatt: vbatt {
         compatible = "zmk,battery-voltage-divider";
         label = "BATTERY";
-		io-channels = <&adc 4>;
+		io-channels = <&gpio0 4>;
 		output-ohms = <2000000>;
 		full-ohms = <(2000000 + 806000)>;
     };
 	
 	
 };
+
+
 &adc {
 	status = "okay";
 };
@@ -115,7 +117,7 @@ vbatt: vbatt {
     spi-max-frequency = <4000000>;
 
     /* WS2812 */
-    chain-length = <10>; /* number of LEDs */
+    chain-length = <67>; /* number of LEDs */
     spi-one-frame = <0x70>;
     spi-zero-frame = <0x40>;
     color-mapping = <LED_COLOR_ID_GREEN
