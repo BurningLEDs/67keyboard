@@ -81,6 +81,22 @@ vbatt: vbatt {
 		full-ohms = <(2000000 + 806000)>;
     };
 
+&adc {
+	status = "okay";
+};
+
+&gpiote {
+	status = "okay";
+};
+
+&gpio0 {
+	status = "okay";
+};
+
+&gpio1 {
+	status = "okay";
+};
+
 &spi0 {
   compatible = "nordic,nrf-spim";
   status = "okay";
