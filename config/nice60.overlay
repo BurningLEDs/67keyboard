@@ -103,7 +103,7 @@ vbatt: vbatt {
 &spi0 {
   compatible = "nordic,nrf-spim";
   status = "okay";
-  mosi-pin = <15>;
+  mosi-pin = <20>;
   // Unused pins, needed for SPI definition, but not used by the ws2812 driver itself.
   sck-pin = <36>;
   miso-pin = <38>;
