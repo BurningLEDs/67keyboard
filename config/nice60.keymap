@@ -9,28 +9,32 @@
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/bt.h>
 
+#define FN       1//用FN替代数字1表示1层，提供各种键盘属性功能
+#define LeftHand 2//适用于右手操作鼠标，左手操纵键盘，左手需要在输入数字，快捷键，字母之间切换的层
+#define LeftTab  3//左手小拇指侧手掌按压键盘按键，快捷切换层
+#define RightTab 4//右手小拇指侧手掌按压键盘按键，快捷切换层
 / {
 	keymap {
 		compatible = "zmk,keymap";
 		
 		default_layer {
 // ------------------------------------------------------------------------------------------
-// | ESC |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |   BKSP   |
-// | TAB  |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |   "|"   |
-// | CAPS  |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |     ENTER    |
-// |  SHIFT  |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  |      SHIFT       |
-// |  CTL  |  WIN  |  ALT  |            SPACE              |  ALT  |  WIN  |  MO(1) |  CTL  |
+// |  `  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |    BKSP    |
+// |  TAB   |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |   "\"   |
+// |  CAPS   |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |     ENTER    |
+// |   SHIFT   |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  |      SHIFT       |
+// |MO(3)|tog(2)|to(0)| CTL | ALT |SPACE| WIN |SPACE| ALT |CTL|SPACE|  MO(1) | MO(4) |  CTL  |
 // ------------------------------------------------------------------------------------------
 			bindings = <
-	&gresc  &kp N1 &kp N2 &kp N3 &kp N4 &kp N5 &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &kp MINUS &kp EQUAL  &kp BSPC
-	&kp TAB  &kp Q  &kp W  &kp E  &kp R  &kp T  &kp Y  &kp U  &kp I  &kp O  &kp P  &kp LBKT  &kp RBKT  &kp BSLH
-	&kp CLCK  &kp A  &kp S  &kp D  &kp F  &kp G  &kp H  &kp J  &kp K  &kp L  &kp SEMI &kp SQT           &kp RET
-	&kp LSHFT   &kp Z  &kp X  &kp C  &kp V  &kp B  &kp N  &kp M  &kp COMMA &kp DOT &kp FSLH           &kp RSHFT
-	&kp LCTRL &kp LGUI &kp LALT  &kp SPACE &kp SPACE &kp SPACE &kp SPACE &kp SPACE &kp SPACE  &kp SPACE  &kp RALT  &kp RGUI  &mo 1   &kp RCTRL
+	&kp GRAVE    &kp N1   &kp N2    &kp N3    &kp N4    &kp N5    &kp N6    &kp N7    &kp N8     &kp N9     &kp N0    &kp MINUS &kp EQUAL  &kp BSPC
+	&kp TAB      &kp Q    &kp W     &kp E     &kp R     &kp T     &kp Y     &kp U     &kp I      &kp O      &kp P     &kp LBKT  &kp RBKT   &kp BSLH
+	&kp CLCK     &kp A    &kp S     &kp D     &kp F     &kp G     &kp H     &kp J     &kp K      &kp L      &kp SEMI  &kp SQT              &kp RET
+	&kp LSHFT    &kp Z    &kp X     &kp C     &kp V     &kp B     &kp N     &kp M     &kp COMMA  &kp DOT    &kp FSLH                       &kp RSHFT
+	&mo LeftTab  &tog LeftHand &to 0  &kp LCTRL  &kp LALT &kp SPACE &kp LWIN &kp SPACE &kp RALT  &kp RCTRL  &kp RALT  &mo FN  &mo RightTab &kp RCTRL
 			>;
 		};
-
-		rgb_layer {
+ 
+		FN_layer {
 // ------------------------------------------------------------------------------------------------
 // | BT CLR | F1  | F2  | F3  | F4  | F5  | F6  | F7  | F8  | F9  | F10  | F11 | F12 | EFFECT REV |
 // |  BT 1   |   |  UP |   | HUEUP | SATUP | BRIUP | SPDUP |   |     |    |     |     |           |
@@ -47,4 +51,27 @@
 			>;
 		};
 	};
+	//组合键
+	 combos {
+        compatible = "zmk,combos";
+		//"`"和"1"一起按下组合为ESC键
+        combo_esc {
+            timeout-ms = <50>;
+            key-positions = <0 1>;
+            bindings = <&kp ESC>;
+        };
+		//"="和"backspace"一起按下组合为del键
+		combo_delete {
+            timeout-ms = <50>;
+            key-positions = <12 13>;
+            bindings = <&kp DELETE>;
+        };
+		//"`"和"tab"一起按下组合为返回桌面
+		combo_desktop {
+            timeout-ms = <50>;
+            key-positions = <0 14>;
+            bindings = <&kp LEFT_WIN &kp D>;
+        };
+    };
 };
+
