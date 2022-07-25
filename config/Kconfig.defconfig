@@ -1,2 +1,6 @@
+if SHIELD_67keyboard
+
 config ZMK_KEYBOARD_NAME
-    default "My Board"
+    default "六指琴魔"
+
+endif
