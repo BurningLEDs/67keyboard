@@ -1,4 +1,4 @@
-if SHIELD_67keyboard
+if SHIELD_nice60
 
 config ZMK_KEYBOARD_NAME
     default "六指琴魔"
